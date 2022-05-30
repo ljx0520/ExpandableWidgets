@@ -153,10 +153,12 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
   Column _buildVerticalExpandable() => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [widget.firstChild]),
-          _inkWellContainer(_buildSecondChild()),
+          Column(children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [widget.firstChild]),
+            _inkWellContainer(_buildSecondChild())
+          ]),
           InkWell(
             hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -225,6 +227,10 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
     if (_initiallyExpanded == true) {
       setState(() {
         _initiallyExpanded = false;
+      });
+    } else {
+      setState(() {
+        _initiallyExpanded = true;
       });
     }
     switch (_animation.status) {
