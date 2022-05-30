@@ -153,7 +153,9 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
   Column _buildVerticalExpandable() => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _inkWellContainer(_buildSecondChild()),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [widget.firstChild]),
           InkWell(
             hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -167,18 +169,14 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
                 : widget.subChild != null
                     ? Column(
                         children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [widget.firstChild]),
                           _initiallyExpanded!
                               ? (widget.subChildOpen ?? widget.subChild!)
                               : widget.subChild!,
                         ],
                       )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [widget.firstChild]),
+                    : Container(),
           ),
+          _inkWellContainer(_buildSecondChild()),
         ],
       );
 
@@ -226,7 +224,11 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
       );
 
   void _toggleExpand() {
-    if (_initiallyExpanded == true) _initiallyExpanded = false;
+    if (_initiallyExpanded == true) {
+      setState(() {
+        _initiallyExpanded = false;
+      });
+    }
     switch (_animation.status) {
       case AnimationStatus.completed:
         _controller.reverse();
