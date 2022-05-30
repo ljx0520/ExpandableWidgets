@@ -156,6 +156,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
           Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [widget.firstChild]),
+          _inkWellContainer(_buildSecondChild()),
           InkWell(
             hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -176,7 +177,6 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
                       )
                     : Container(),
           ),
-          _inkWellContainer(_buildSecondChild()),
         ],
       );
 
