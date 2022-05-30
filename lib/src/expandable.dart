@@ -154,7 +154,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [widget.firstChild]),
           _inkWellContainer(_buildSecondChild()),
           InkWell(
@@ -185,7 +185,6 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
         ? Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              widget.firstChild,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 textDirection: widget.arrowLocation == ArrowLocation.right
@@ -210,7 +209,6 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
             children: [
               if (widget.centralizeFirstChild)
                 Visibility(visible: false, child: _buildRotation()),
-              widget.firstChild,
               _buildRotation(),
             ],
           );
