@@ -105,10 +105,16 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   bool? _initiallyExpanded = false;
+  bool? isOpened = false;
 
   @override
   void initState() {
     _initiallyExpanded = widget.initiallyExpanded ?? false;
+    if (_initiallyExpanded ?? false) {
+      isOpened = true;
+    } else {
+      isOpened = false;
+    }
     _controller = widget.animationController ??
         AnimationController(vsync: this, duration: widget.animationDuration);
     _animation = widget.animation ??
@@ -153,12 +159,8 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
   Column _buildVerticalExpandable() => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Column(children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [widget.firstChild]),
-            _inkWellContainer(_buildSecondChild())
-          ]),
+          widget.firstChild,
+          _inkWellContainer(_buildSecondChild()),
           InkWell(
             hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -172,7 +174,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
                 : widget.subChild != null
                     ? Column(
                         children: [
-                          _initiallyExpanded!
+                          isOpened!
                               ? (widget.subChildOpen ?? widget.subChild!)
                               : widget.subChild!,
                         ],
@@ -195,7 +197,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
                 children: [
                   if (widget.centralizeFirstChild)
                     Visibility(visible: false, child: _buildRotation()),
-                  _initiallyExpanded!
+                  isOpened!
                       ? (widget.subChildOpen ?? widget.subChild!)
                       : widget.subChild!,
                   _buildRotation(),
@@ -224,13 +226,14 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
       );
 
   void _toggleExpand() {
-    if (_initiallyExpanded == true) {
+    if (_initiallyExpanded == true) _initiallyExpanded = false;
+    if (isOpened ?? false) {
       setState(() {
-        _initiallyExpanded = false;
+        isOpened = false;
       });
     } else {
       setState(() {
-        _initiallyExpanded = true;
+        isOpened = true;
       });
     }
     switch (_animation.status) {
