@@ -158,8 +158,8 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
 
   Column _buildVerticalExpandable() => Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           widget.firstChild,
           _inkWellContainer(_buildSecondChild()),
