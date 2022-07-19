@@ -192,7 +192,7 @@ class _ExpandableState extends State<Expandable> with TickerProviderStateMixin {
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 textDirection: widget.arrowLocation == ArrowLocation.right
                     ? TextDirection.ltr
                     : TextDirection.rtl,
